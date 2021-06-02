@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { Container } from "@material-ui/core";
+import { useEffect, useState } from "react";
+import { getCountries, getCountrybyReport } from "./apis";
+import "./App.css";
+import CountrySelector from "./components/countrySelector";
+import Hightlights from "./components/highlights";
+import Summary from "./components/summary";
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [country, setcountry] = useState([]);
+    const [countryByreport, setCountryByReport] = useState([]);
+    const [contrybySlug, setCountryBySlug] = useState([]);
+    useEffect(() => {
+        getCountries().then((res) => {
+            setcountry(res.data);
+        });
+    }, []);
+    const handleOnChange = (e) => {
+        setCountryByReport(
+            country.find((x) => x.ISO2.toLowerCase() === e.target.value)
+        );
+    };
+    useEffect(() => {
+        getCountrybyReport(countryByreport.Slug).then((res) => {
+            res.data.pop();
+            setCountryBySlug(res.data);
+        });
+    }, [country, countryByreport]);
+    return (
+        <Container>
+            <CountrySelector
+                countries={country}
+                handleOnChange={handleOnChange}
+            />
+            <Hightlights data={contrybySlug} />
+            <Summary />
+        </Container>
+    );
 }
 
 export default App;
