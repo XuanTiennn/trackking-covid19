@@ -64,7 +64,7 @@ function LineChart({data}) {
         <div>
             <HighchartsReact
              highcharts={Highchart}
-             options={{}}
+             options={options}
             />
         </div>
     );

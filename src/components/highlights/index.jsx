@@ -6,7 +6,7 @@ import CardItem from "./components/carditem";
 Hightlights.propTypes = {};
 
 function Hightlights({ data }) {
-    const a = data[data.length - 1];
+    const a =data && data.length ? data[data.length - 1] : [];
     const summary = [
         {
             title: "Số ca mắc",

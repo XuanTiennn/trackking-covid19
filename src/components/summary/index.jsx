@@ -7,11 +7,11 @@ Summary.propTypes = {
     
 };
 
-function Summary(props) {
+function Summary({data}) {
     return (
         <Grid container spacing={3}>
             <Grid sm={8} xs={12}>
-             <LineChart  />
+             <LineChart data={data}  />
             </Grid>
             <Grid sm={4} xs={12}>
 
