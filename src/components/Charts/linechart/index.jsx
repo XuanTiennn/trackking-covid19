@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import HighchartsReact from "highcharts-react-official";
 import Highchart from "highcharts";
 import moment from "moment";
+import { Button, ButtonGroup } from "@material-ui/core";
 LineChart.propTypes = {};
 const generateOptions = (data) => {
     const categories = data?.map((item) =>
@@ -55,17 +56,52 @@ const generateOptions = (data) => {
     };
 };
 
-function LineChart({data}) {
-    const [options,setOptions]=useState({});
-    useEffect(()=>{
-      setOptions(generateOptions(data));
-    },[data])
+function LineChart({ data }) {
+    const [options, setOptions] = useState({});
+    const [reportType, setReportType] = useState("all");
+    useEffect(() => {
+        let customdata = [];
+        switch (reportType) {
+            case "all":
+                customdata = data;
+                break;
+            case "30":
+                customdata = data.slice(data.length - 30);
+                break;
+            case "7":
+                customdata = data.slice(data.length - 7);
+                break;
+            default:
+                customdata = data;
+                break;
+        }
+        setOptions(generateOptions(customdata));
+    }, [data, reportType]);
     return (
         <div>
-            <HighchartsReact
-             highcharts={Highchart}
-             options={options}
-            />
+            <ButtonGroup
+                style={{ display: "flex", justifyContent: "flex-end" }}
+            >
+                <Button
+                    color={reportType === "all" ? "secondary" : ""}
+                    onClick={() => setReportType("all")}
+                >
+                    Tất cả
+                </Button>
+                <Button
+                    color={reportType === "30" ? "secondary" : ""}
+                    onClick={() => setReportType("30")}
+                >
+                    30 ngày
+                </Button>
+                <Button
+                    color={reportType === "7" ? "secondary" : ""}
+                    onClick={() => setReportType("7")}
+                >
+                    7 ngày
+                </Button>
+            </ButtonGroup>
+            <HighchartsReact highcharts={Highchart} options={options} />
         </div>
     );
 }
