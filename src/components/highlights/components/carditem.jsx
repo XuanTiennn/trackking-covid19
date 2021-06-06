@@ -1,32 +1,38 @@
+import {
+    Card,
+    CardContent,
+    Grid,
+    makeStyles,
+    Typography,
+} from "@material-ui/core";
 import React from "react";
-import PropTypes from "prop-types";
-import { Card, CardContent, Grid, makeStyles, Typography } from "@material-ui/core";
+import CountUp from "react-countup";
 
 CardItem.propTypes = {};
-const useStyles=makeStyles({
-    wrapper:(props)=>{
-        if (props.type === 'confirmed') return {borderLeft:'5px solid red'}
-        if (props.type === 'active') return {borderLeft:'5px solid green'}
-        return {borderLeft:'5px solid gray'}
-    }
-        
-    
-})
+const useStyles = makeStyles({
+    wrapper: (props) => {
+        if (props.type === "confirmed") return { borderLeft: "5px solid red" };
+        if (props.type === "active") return { borderLeft: "5px solid green" };
+        return { borderLeft: "5px solid gray" };
+    },
+});
 function CardItem({ type, title, count }) {
-    const classes=useStyles({type})
+    const classes = useStyles({ type });
     return (
         <>
-            <Grid className={classes.wrapper} item sm={4} xs={12}>
-                <CardContent>
+            <Grid  item sm={4} xs={12}>
+                <Card className={classes.wrapper}>
                     <CardContent>
-                        <Typography component="p" variant="body2">
-                            {title}
-                        </Typography>
-                        <Typography component="span" variant="body2">
-                            {count}
-                        </Typography>
+                        <CardContent>
+                            <Typography component="p" variant="body2">
+                                {title}
+                            </Typography>
+                            <Typography style={{fontWeight:'bold'}} component="span" variant="body2">
+                              <CountUp end={count || 0} duration={2} separator=" "/> 
+                            </Typography>
+                        </CardContent>
                     </CardContent>
-                </CardContent>
+                </Card>
             </Grid>
         </>
     );

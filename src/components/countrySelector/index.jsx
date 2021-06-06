@@ -1,14 +1,24 @@
+import {
+    FormControl,
+    FormHelperText,
+    InputLabel,
+    makeStyles,
+    NativeSelect,
+} from "@material-ui/core";
 import React from "react";
-import PropTypes from "prop-types";
-import { FormControl, FormHelperText, InputLabel, NativeSelect } from "@material-ui/core";
 
 CountrySelector.propTypes = {};
 
+const useStyles = makeStyles((theme) => ({
+    formcoltroll: {
+        margin: theme.spacing(3,0),
+    },
+}));
 function CountrySelector({ value, handleOnChange, countries }) {
- 
+    const classes=useStyles();
     return (
         <div>
-            <FormControl>
+            <FormControl className={classes.formcoltroll}>
                 <InputLabel htmlFor="country-selector" shrink>
                     Quốc gia
                 </InputLabel>
@@ -21,7 +31,10 @@ function CountrySelector({ value, handleOnChange, countries }) {
                     }}
                 >
                     {countries.map((country) => (
-                        <option value={country.ISO2.toLowerCase()}>
+                        <option
+                            key={country.ISO2}
+                            value={country.ISO2.toLowerCase()}
+                        >
                             {country.Country}
                         </option>
                     ))}

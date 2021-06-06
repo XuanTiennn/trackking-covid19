@@ -1,6 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
 import { Grid } from "@material-ui/core";
+import React from "react";
 import CardItem from "./components/carditem";
 
 Hightlights.propTypes = {};
@@ -26,7 +25,7 @@ function Hightlights({ data }) {
     ];
     return (
         <Grid container spacing={3}>
-            {summary.map((item)=><CardItem count={item.count} title={item.title} type={item.type}  />)}
+            {summary.map((item)=><CardItem key={item.type} count={item.count} title={item.title} type={item.type}  />)}
         </Grid>
     );
 }

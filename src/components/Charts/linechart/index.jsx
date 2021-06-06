@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import HighchartsReact from "highcharts-react-official";
-import Highchart from "highcharts";
-import moment from "moment";
 import { Button, ButtonGroup } from "@material-ui/core";
+import Highchart from "highcharts";
+import HighchartsReact from "highcharts-react-official";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
 LineChart.propTypes = {};
 const generateOptions = (data) => {
     const categories = data?.map((item) =>
@@ -106,4 +105,4 @@ function LineChart({ data }) {
     );
 }
 
-export default LineChart;
+export default React.memo(LineChart);
